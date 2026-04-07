@@ -1,4 +1,3 @@
-/// <reference lib="deno.ns" />
 import "./globals.d.ts";
 
 type TestCallback = () => void | Promise<void>;
