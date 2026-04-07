@@ -9,11 +9,13 @@ describe("isValidCep", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidCep(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCep(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidCep(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCep(undefined)).toBe(false);
 		});
 
 		test(`when length is less than ${LENGTH}`, () => {

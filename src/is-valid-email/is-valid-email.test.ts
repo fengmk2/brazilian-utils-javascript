@@ -8,11 +8,13 @@ describe("isValidEmail", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidEmail(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidEmail(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidEmail(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidEmail(undefined)).toBe(false);
 		});
 
 		test("when it is missing @", () => {

@@ -14,7 +14,8 @@ describe("getCities", () => {
 	});
 
 	it("should return empty array if state does not exist", () => {
-		expect(getCities("ACC" as any)).toEqual([]);
+		// @ts-expect-error
+		expect(getCities("ACC")).toEqual([]);
 	});
 
 	describe("return cities from states", () => {

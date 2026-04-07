@@ -4,7 +4,22 @@ import { isValidPassport } from "./is-valid-passport";
 describe("isValidPassport", () => {
 	describe("should return false", () => {
 		test("when passport is not a string", () => {
-			expect(isValidPassport(1 as unknown as string)).toBe(false);
+			expect(isValidPassport(1)).toBe(false);
+		});
+
+		test("when passport is null", () => {
+			// @ts-expect-error
+			expect(isValidPassport(null)).toBe(false);
+		});
+
+		test("when passport is undefined", () => {
+			// @ts-expect-error
+			expect(isValidPassport(undefined)).toBe(false);
+		});
+
+		test("when passport is an object", () => {
+			// @ts-expect-error
+			expect(isValidPassport({})).toBe(false);
 		});
 
 		test("when passport length is different from 8", () => {

@@ -9,11 +9,13 @@ describe("isValidProcessoJuridico", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidProcessoJuridico(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidProcessoJuridico(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidProcessoJuridico(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidProcessoJuridico(undefined)).toBe(false);
 		});
 
 		test(`when length is less than ${LENGTH}`, () => {

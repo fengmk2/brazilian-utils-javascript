@@ -9,11 +9,13 @@ describe("isValidBoleto", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidBoleto(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidBoleto(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidBoleto(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidBoleto(undefined)).toBe(false);
 		});
 
 		test(`when length is less than ${LENGTH}`, () => {
@@ -21,16 +23,20 @@ describe("isValidBoleto", () => {
 		});
 
 		test("when is array", () => {
-			expect(isValidBoleto([] as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidBoleto([])).toBe(false);
 		});
 
 		test("when is object", () => {
-			expect(isValidBoleto({} as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidBoleto({})).toBe(false);
 		});
 
 		test("when is boolean", () => {
-			expect(isValidBoleto(true as any)).toBe(false);
-			expect(isValidBoleto(false as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidBoleto(true)).toBe(false);
+			// @ts-expect-error
+			expect(isValidBoleto(false)).toBe(false);
 		});
 
 		test("when check digit mod10 is invalid", () => {

@@ -539,7 +539,7 @@ generatePassport(); // 'RY393097'
 
 ## parsePassport
 
-Remove symbols ('-', '.', and whitespaces) from a passport number.
+Remove all non-alphanumeric characters (including '-', '.', and whitespaces) from a passport number.
 
 ```javascript
 import { parsePassport } from '@brazilian-utils/brazilian-utils';

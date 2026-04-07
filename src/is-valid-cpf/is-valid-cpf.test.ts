@@ -16,24 +16,30 @@ describe("isValidCpf", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidCpf(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCpf(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidCpf(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCpf(undefined)).toBe(false);
 		});
 
 		test("when it is a boolean", () => {
-			expect(isValidCpf(true as any)).toBe(false);
-			expect(isValidCpf(false as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCpf(true)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCpf(false)).toBe(false);
 		});
 
 		test("when it is an object", () => {
-			expect(isValidCpf({} as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCpf({})).toBe(false);
 		});
 
 		test("when it is an array", () => {
-			expect(isValidCpf([] as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCpf([])).toBe(false);
 		});
 
 		test(`when dont match with CPF length (${LENGTH})`, () => {

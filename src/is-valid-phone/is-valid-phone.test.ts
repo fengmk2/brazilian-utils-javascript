@@ -8,7 +8,8 @@ describe("isValidPhone", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidPhone(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidPhone(null)).toBe(false);
 		});
 
 		test("when length is invalid", () => {

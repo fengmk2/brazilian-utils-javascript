@@ -16,24 +16,30 @@ describe("isValidCnpj", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidCnpj(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCnpj(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidCnpj(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCnpj(undefined)).toBe(false);
 		});
 
 		test("when it is a boolean", () => {
-			expect(isValidCnpj(true as any)).toBe(false);
-			expect(isValidCnpj(false as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCnpj(true)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCnpj(false)).toBe(false);
 		});
 
 		test("when it is an object", () => {
-			expect(isValidCnpj({} as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCnpj({})).toBe(false);
 		});
 
 		test("when it is an array", () => {
-			expect(isValidCnpj([] as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidCnpj([])).toBe(false);
 		});
 
 		test(`when dont match with CNPJ length (${LENGTH})`, () => {

@@ -8,24 +8,30 @@ describe("isValidRenavam", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidRenavam(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidRenavam(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidRenavam(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidRenavam(undefined)).toBe(false);
 		});
 
 		test("when it is a boolean", () => {
-			expect(isValidRenavam(true as any)).toBe(false);
-			expect(isValidRenavam(false as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidRenavam(true)).toBe(false);
+			// @ts-expect-error
+			expect(isValidRenavam(false)).toBe(false);
 		});
 
 		test("when it is an object", () => {
-			expect(isValidRenavam({} as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidRenavam({})).toBe(false);
 		});
 
 		test("when it is an array", () => {
-			expect(isValidRenavam([] as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidRenavam([])).toBe(false);
 		});
 
 		test("when it has less than 9 digits", () => {

@@ -219,7 +219,8 @@ describe("getAddressInfoByCep", () => {
 
 			it("should filter out invalid provider names", async () => {
 				const result = await getAddressInfoByCep(VALID_CEP, {
-					providers: ["viacep", "invalid" as any, "brasilapi"],
+					// @ts-expect-error
+					providers: ["viacep", "invalid", "brasilapi"],
 				});
 
 				expect(result).toBeDefined();

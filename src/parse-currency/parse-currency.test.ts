@@ -32,11 +32,13 @@ describe("parseCurrency", () => {
 		});
 
 		test("when it is null", () => {
-			expect(parseCurrency(null as any)).toBe(0);
+			// @ts-expect-error
+			expect(parseCurrency(null)).toBe(0);
 		});
 
 		test("when it is undefined", () => {
-			expect(parseCurrency(undefined as any)).toBe(0);
+			// @ts-expect-error
+			expect(parseCurrency(undefined)).toBe(0);
 		});
 
 		test("should transform a formatted value into a float", () => {

@@ -50,7 +50,8 @@ describe("isValidBankAccount", () => {
 		test("when bankCode is null", () => {
 			expect(
 				isValidBankAccount({
-					bankCode: null as any,
+					// @ts-expect-error
+					bankCode: null,
 					agency: "1234",
 					account: "12345678",
 					digit: "5",
@@ -61,7 +62,8 @@ describe("isValidBankAccount", () => {
 		test("when bankCode is undefined", () => {
 			expect(
 				isValidBankAccount({
-					bankCode: undefined as any,
+					// @ts-expect-error
+					bankCode: undefined,
 					agency: "1234",
 					account: "12345678",
 					digit: "5",
@@ -72,7 +74,8 @@ describe("isValidBankAccount", () => {
 		test("when bankCode is not a string", () => {
 			expect(
 				isValidBankAccount({
-					bankCode: 123 as any,
+					// @ts-expect-error
+					bankCode: 123,
 					agency: "1234",
 					account: "12345678",
 					digit: "5",

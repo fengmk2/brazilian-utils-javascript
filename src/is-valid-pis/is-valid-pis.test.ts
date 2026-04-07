@@ -15,24 +15,30 @@ describe("isValidPis", () => {
 		});
 
 		test("when it is null", () => {
-			expect(isValidPis(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidPis(null)).toBe(false);
 		});
 
 		test("when it is undefined", () => {
-			expect(isValidPis(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidPis(undefined)).toBe(false);
 		});
 
 		test("when it is a boolean", () => {
-			expect(isValidPis(true as any)).toBe(false);
-			expect(isValidPis(false as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidPis(true)).toBe(false);
+			// @ts-expect-error
+			expect(isValidPis(false)).toBe(false);
 		});
 
 		test("when is an object", () => {
-			expect(isValidPis({} as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidPis({})).toBe(false);
 		});
 
 		test("when is an array", () => {
-			expect(isValidPis([] as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidPis([])).toBe(false);
 		});
 
 		test(`when dont match with PIS length (${LENGTH})`, () => {

@@ -8,24 +8,30 @@ describe("isValidLicensePlate", () => {
 		});
 
 		it("when it is null", () => {
-			expect(isValidLicensePlate(null as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidLicensePlate(null)).toBe(false);
 		});
 
 		it("when it is undefined", () => {
-			expect(isValidLicensePlate(undefined as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidLicensePlate(undefined)).toBe(false);
 		});
 
 		it("when it is a boolean", () => {
-			expect(isValidLicensePlate(true as any)).toBe(false);
-			expect(isValidLicensePlate(false as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidLicensePlate(true)).toBe(false);
+			// @ts-expect-error
+			expect(isValidLicensePlate(false)).toBe(false);
 		});
 
 		it("when it is an object", () => {
-			expect(isValidLicensePlate({} as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidLicensePlate({})).toBe(false);
 		});
 
 		it("when it is an array", () => {
-			expect(isValidLicensePlate([] as any)).toBe(false);
+			// @ts-expect-error
+			expect(isValidLicensePlate([])).toBe(false);
 		});
 
 		it("when brazilian license plate format is invalid", () => {
