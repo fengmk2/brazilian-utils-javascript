@@ -547,3 +547,279 @@ import { parsePassport } from '@brazilian-utils/brazilian-utils';
 parsePassport('AB-123.456'); // 'AB123456'
 parsePassport(' AB 123 456 '); // 'AB123456'
 ```
+
+## generateCep
+
+Gera um CEP aleatório.
+
+```javascript
+import { generateCep } from '@brazilian-utils/brazilian-utils';
+
+generateCep(); // '92500000'
+```
+
+## formatCnh
+
+Formata a CNH.
+
+```javascript
+import { formatCnh } from '@brazilian-utils/brazilian-utils';
+
+formatCnh('02650306461'); // 026503064-61
+formatCnh('2650306461', { pad: true }); // 026503064-61
+```
+
+## isValidCnh
+
+Valida se a CNH é válida.
+
+```javascript
+import { isValidCnh } from '@brazilian-utils/brazilian-utils';
+
+isValidCnh('00000000119'); // true
+```
+
+## generateCnh
+
+Gera uma CNH válida aleatória.
+
+```javascript
+import { generateCnh } from '@brazilian-utils/brazilian-utils';
+
+generateCnh(); // '02650306461'
+```
+
+## parseCnh
+
+Remove a formatação da CNH e retorna apenas os dígitos.
+
+```javascript
+import { parseCnh } from '@brazilian-utils/brazilian-utils';
+
+parseCnh('026503064-61'); // '02650306461'
+```
+
+## getCepInfoByAddress
+
+Busca CEPs a partir de um endereço usando a ViaCEP.
+
+```javascript
+import { getCepInfoByAddress } from '@brazilian-utils/brazilian-utils';
+
+const ceps = await getCepInfoByAddress({
+  federalUnit: 'SP',
+  city: 'Sao Paulo',
+  street: 'Avenida Paulista'
+});
+
+// [
+//   {
+//     cep: '01310100',
+//     logradouro: 'Avenida Paulista',
+//     complemento: 'lado par',
+//     bairro: 'Bela Vista',
+//     localidade: 'São Paulo',
+//     uf: 'SP'
+//   }
+// ]
+```
+
+## generateProcessoJuridico
+
+Gera um número de processo jurídico válido de acordo com a definição do [CNJ](https://www.conjur.com.br/dl/resolucao-65-cnj.pdf).
+
+```javascript
+import { generateProcessoJuridico } from '@brazilian-utils/brazilian-utils';
+
+generateProcessoJuridico(); // '00020802520125150049'
+generateProcessoJuridico({ year: 2026, court: 5 }); // string | null
+```
+
+## formatLegalNature
+
+Formata um código de natureza jurídica.
+
+```javascript
+import { formatLegalNature } from '@brazilian-utils/brazilian-utils';
+
+formatLegalNature('2062'); // 206-2
+```
+
+## isValidLegalNature
+
+Valida se um código de natureza jurídica existe na lista oficial.
+
+```javascript
+import { isValidLegalNature } from '@brazilian-utils/brazilian-utils';
+
+isValidLegalNature('2062'); // true
+isValidLegalNature('9999'); // false
+```
+
+## generateLegalNature
+
+Gera um código de natureza jurídica válido aleatório.
+
+```javascript
+import { generateLegalNature } from '@brazilian-utils/brazilian-utils';
+
+generateLegalNature(); // '2062'
+```
+
+## parseLegalNature
+
+Remove a formatação da natureza jurídica e retorna apenas os dígitos.
+
+```javascript
+import { parseLegalNature } from '@brazilian-utils/brazilian-utils';
+
+parseLegalNature('206-2'); // '2062'
+```
+
+## getLegalNatures
+
+Retorna o mapa de naturezas jurídicas indexado pelo código.
+
+```javascript
+import { getLegalNatures } from '@brazilian-utils/brazilian-utils';
+
+const legalNatures = getLegalNatures();
+
+legalNatures['2062']; // 'Sociedade Empresária Limitada'
+```
+
+## generatePhone
+
+Gera um telefone brasileiro aleatório.
+
+```javascript
+import { generatePhone } from '@brazilian-utils/brazilian-utils';
+
+generatePhone(); // '11912345678' ou '1131234567'
+generatePhone('mobile'); // '11912345678'
+generatePhone('landline'); // '1131234567'
+```
+
+## formatLicensePlate
+
+Formata uma placa. Placas antigas brasileiras são retornadas com hífen e placas Mercosul permanecem normalizadas.
+
+```javascript
+import { formatLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+formatLicensePlate('abc1234'); // 'ABC-1234'
+formatLicensePlate('abc1d23'); // 'ABC1D23'
+```
+
+## generateLicensePlate
+
+Gera uma placa aleatória no formato escolhido.
+
+```javascript
+import { generateLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+generateLicensePlate(); // 'ABC1D23'
+generateLicensePlate('LLLNNNN'); // 'ABC1234'
+generateLicensePlate('LLLNNLN'); // 'ABC12D3'
+```
+
+## getFormatLicensePlate
+
+Detecta o formato normalizado de uma placa.
+
+```javascript
+import { getFormatLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+getFormatLicensePlate('ABC-1234'); // 'LLLNNNN'
+getFormatLicensePlate('ABC1D23'); // 'LLLNLNN'
+getFormatLicensePlate('ABC12D3'); // 'LLLNNLN'
+getFormatLicensePlate('INVALID'); // null
+```
+
+## parseLicensePlate
+
+Remove separadores de uma placa e normaliza para letras maiúsculas.
+
+```javascript
+import { parseLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+parseLicensePlate('abc-1234'); // 'ABC1234'
+```
+
+## generatePis
+
+Gera um PIS válido aleatório.
+
+```javascript
+import { generatePis } from '@brazilian-utils/brazilian-utils';
+
+generatePis(); // '12345678901'
+```
+
+## getMunicipality
+
+Busca informações de município por código IBGE, ou obtém o código IBGE a partir do nome do município e UF.
+
+```javascript
+import { getMunicipality } from '@brazilian-utils/brazilian-utils';
+
+await getMunicipality({ code: '3550308' });
+// ['São Paulo', 'SP']
+
+await getMunicipality({ municipalityName: 'São Paulo', uf: 'SP' });
+// '3550308'
+```
+
+## isHoliday
+
+Verifica se uma data específica é feriado brasileiro.
+
+```javascript
+import { isHoliday } from '@brazilian-utils/brazilian-utils';
+
+isHoliday({ targetDate: new Date('2024-01-01') }); // true
+isHoliday({ targetDate: new Date('2024-07-09'), stateCode: 'SP' }); // true
+```
+
+## formatVoterId
+
+Formata um título de eleitor.
+
+```javascript
+import { formatVoterId } from '@brazilian-utils/brazilian-utils';
+
+formatVoterId('123456780175'); // '1234 5678 01 75'
+```
+
+## isValidVoterId
+
+Valida se um título de eleitor é válido.
+
+```javascript
+import { generateVoterId, isValidVoterId } from '@brazilian-utils/brazilian-utils';
+
+const voterId = generateVoterId('SP');
+
+isValidVoterId(voterId); // true
+```
+
+## generateVoterId
+
+Gera um título de eleitor válido aleatório. Você pode opcionalmente informar a UF.
+
+```javascript
+import { generateVoterId } from '@brazilian-utils/brazilian-utils';
+
+generateVoterId(); // título de eleitor aleatório válido
+generateVoterId('SP'); // título de eleitor aleatório válido de São Paulo
+```
+
+## parseVoterId
+
+Remove a formatação do título de eleitor e retorna apenas os dígitos.
+
+```javascript
+import { parseVoterId } from '@brazilian-utils/brazilian-utils';
+
+parseVoterId('1234 5678 01 75'); // '123456780175'
+```

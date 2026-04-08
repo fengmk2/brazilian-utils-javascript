@@ -1,0 +1,1 @@
+export const OLD_FORMAT_SEPARATOR_INDEX = 3;
