@@ -7,4 +7,5 @@ import { LENGTH } from "../format-boleto/constants";
  * @param {string|number} value - The boleto value to be parsed.
  * @returns {string} The boleto value without formatting.
  */
-export const parseBoleto = (value: string | number): string => sanitizeToDigits(value).slice(0, LENGTH);
+export const parseBoleto = (value: string | number): string =>
+	sanitizeToDigits(value).slice(0, LENGTH);

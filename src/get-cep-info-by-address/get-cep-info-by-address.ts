@@ -42,7 +42,8 @@ export type GetCepInfoByAddressOptions = {
 
 const VALID_STATE_CODES = new Set<StateCode>(STATES.map((state) => state.code));
 
-const isStateCode = (value: string): value is StateCode => VALID_STATE_CODES.has(value as StateCode);
+const isStateCode = (value: string): value is StateCode =>
+	VALID_STATE_CODES.has(value as StateCode);
 
 const normalizeAddressPart = (value: string): string =>
 	value

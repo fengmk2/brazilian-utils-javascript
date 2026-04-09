@@ -7,4 +7,5 @@ import { LENGTH } from "../format-pis/constants";
  * @param {string|number} value - The PIS value to be parsed.
  * @returns {string} The PIS value without formatting.
  */
-export const parsePis = (value: string | number): string => sanitizeToDigits(value).slice(0, LENGTH);
+export const parsePis = (value: string | number): string =>
+	sanitizeToDigits(value).slice(0, LENGTH);

@@ -7,4 +7,5 @@ import { LENGTH } from "./constants";
  * @param {string|number} value - The phone value to be parsed.
  * @returns {string} The phone value without formatting.
  */
-export const parsePhone = (value: string | number): string => sanitizeToDigits(value).slice(0, LENGTH);
+export const parsePhone = (value: string | number): string =>
+	sanitizeToDigits(value).slice(0, LENGTH);

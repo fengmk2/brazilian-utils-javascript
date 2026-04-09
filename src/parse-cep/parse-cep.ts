@@ -7,4 +7,5 @@ import { LENGTH } from "../format-cep/constants";
  * @param {string|number} value - The CEP value to be parsed.
  * @returns {string} The CEP value without formatting.
  */
-export const parseCep = (value: string | number): string => sanitizeToDigits(value).slice(0, LENGTH);
+export const parseCep = (value: string | number): string =>
+	sanitizeToDigits(value).slice(0, LENGTH);

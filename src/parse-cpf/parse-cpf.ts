@@ -7,4 +7,5 @@ import { LENGTH } from "../format-cpf/constants";
  * @param {string|number} value - The CPF value to be parsed.
  * @returns {string} The CPF value without formatting.
  */
-export const parseCpf = (value: string | number): string => sanitizeToDigits(value).slice(0, LENGTH);
+export const parseCpf = (value: string | number): string =>
+	sanitizeToDigits(value).slice(0, LENGTH);

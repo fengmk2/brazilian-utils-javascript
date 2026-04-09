@@ -126,7 +126,7 @@ function createMock<TArgs extends unknown[] = unknown[], TResult = unknown>(
 	return mockFn;
 }
 
-function createExpect(actual: unknown) {
+function createMatchers(actual: unknown) {
 	return {
 		toBe(expected: unknown) {
 			if (!Object.is(actual, expected)) {
@@ -154,6 +154,23 @@ function createExpect(actual: unknown) {
 
 			if (!Array.isArray(actual) || !actual.includes(expected)) {
 				throw createAssertionError(`Expected value to contain ${String(expected)}`);
+			}
+		},
+		toMatch(expected: RegExp | string) {
+			if (typeof actual !== "string") {
+				throw createAssertionError("Expected value to be a string");
+			}
+
+			if (expected instanceof RegExp) {
+				if (!expected.test(actual)) {
+					throw createAssertionError(`Expected ${actual} to match ${String(expected)}`);
+				}
+
+				return;
+			}
+
+			if (!actual.includes(expected)) {
+				throw createAssertionError(`Expected ${actual} to contain ${expected}`);
 			}
 		},
 		toContainEqual(expected: unknown) {
@@ -224,6 +241,32 @@ function createExpect(actual: unknown) {
 			if (!isRecord(actual) || !objectMatches(actual, expected)) {
 				throw createAssertionError("Expected object to match");
 			}
+		},
+	};
+}
+
+function createExpect(actual: unknown) {
+	const matchers = createMatchers(actual);
+
+	return {
+		...matchers,
+		get resolves() {
+			const promise = Promise.resolve(actual);
+
+			return Object.fromEntries(
+				Object.entries(createMatchers(undefined)).map(([name]) => [
+					name,
+					async (...args: unknown[]) => {
+						const resolved = await promise;
+						const resolvedMatchers = createMatchers(resolved) as Record<
+							string,
+							(...args: unknown[]) => unknown
+						>;
+
+						return resolvedMatchers[name](...args);
+					},
+				]),
+			);
 		},
 		get rejects() {
 			return {
