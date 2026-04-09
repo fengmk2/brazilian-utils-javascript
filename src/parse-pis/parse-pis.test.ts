@@ -9,4 +9,8 @@ describe("parsePis", () => {
 	it("should remove non numeric characters", () => {
 		expect(parsePis("123#Error*&@#45678#Char!90-1")).toBe("12345678901");
 	});
+
+	it("should ignore digits after the PIS length", () => {
+		expect(parsePis("12345678901123")).toBe("12345678901");
+	});
 });

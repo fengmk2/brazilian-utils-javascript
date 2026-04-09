@@ -1,12 +1,12 @@
 import { type FormatParams, format } from "../_internals/format/format";
+import { sanitizeToAlphanumeric } from "../_internals/sanitize-to-alphanumeric/sanitize-to-alphanumeric";
 import { sanitizeToDigits } from "../_internals/sanitize-to-digits/sanitize-to-digits";
 
 export type FormatCnpjOptions = Pick<FormatParams, "pad"> & { version?: 1 | 2 };
 
 const sanitize = (value: string | number, version?: FormatCnpjOptions["version"]) => {
 	if (version === 2) {
-		const enhancedValue = value.toString();
-		return enhancedValue.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
+		return sanitizeToAlphanumeric(value);
 	}
 
 	return sanitizeToDigits(value);

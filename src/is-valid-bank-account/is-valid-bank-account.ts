@@ -2,14 +2,16 @@ import { mod10 } from "../_internals/mod10/mod10";
 import { mod11 } from "../_internals/mod11/mod11";
 import { sanitizeToDigits } from "../_internals/sanitize-to-digits/sanitize-to-digits";
 
-export type IsValidBankAccountParams = {
+export type IsValidBankAccountOptions = {
 	bankCode: string;
 	agency: string;
 	account: string;
 	digit: string;
 };
 
-const validateBancoDoBrasil = (params: IsValidBankAccountParams): boolean => {
+export type IsValidBankAccountParams = IsValidBankAccountOptions;
+
+const validateBancoDoBrasil = (params: IsValidBankAccountOptions): boolean => {
 	const { agency, account, digit } = params;
 
 	if (agency.length < 4 || agency.length > 5) return false;
@@ -34,7 +36,7 @@ const validateBancoDoBrasil = (params: IsValidBankAccountParams): boolean => {
 	return digitChar === digit;
 };
 
-const validateItau = (params: IsValidBankAccountParams): boolean => {
+const validateItau = (params: IsValidBankAccountOptions): boolean => {
 	const { agency, account, digit } = params;
 
 	if (agency.length !== 4) return false;
@@ -60,7 +62,7 @@ const validateItau = (params: IsValidBankAccountParams): boolean => {
 	return String(calculatedDigit) === digit;
 };
 
-const validateBradesco = (params: IsValidBankAccountParams): boolean => {
+const validateBradesco = (params: IsValidBankAccountOptions): boolean => {
 	const { agency, account, digit } = params;
 
 	if (agency.length !== 4) return false;
@@ -82,7 +84,7 @@ const validateBradesco = (params: IsValidBankAccountParams): boolean => {
 	return String(calculatedDigit) === digit;
 };
 
-const validateSantander = (params: IsValidBankAccountParams): boolean => {
+const validateSantander = (params: IsValidBankAccountOptions): boolean => {
 	const { agency, account, digit } = params;
 
 	if (agency.length !== 4) return false;
@@ -95,7 +97,7 @@ const validateSantander = (params: IsValidBankAccountParams): boolean => {
 	return String(digitValue) === digit;
 };
 
-const validateCaixa = (params: IsValidBankAccountParams): boolean => {
+const validateCaixa = (params: IsValidBankAccountOptions): boolean => {
 	const { agency, account, digit } = params;
 
 	if (agency.length !== 4) return false;
@@ -109,7 +111,7 @@ const validateCaixa = (params: IsValidBankAccountParams): boolean => {
 	return String(digitValue) === digit;
 };
 
-const validateGeneric = (params: IsValidBankAccountParams): boolean => {
+const validateGeneric = (params: IsValidBankAccountOptions): boolean => {
 	const { account, digit } = params;
 
 	if (digit.length < 1 || digit.length > 2) return false;
@@ -127,7 +129,7 @@ const validateGeneric = (params: IsValidBankAccountParams): boolean => {
 	return false;
 };
 
-const VALIDATORS: Record<string, (params: IsValidBankAccountParams) => boolean> = {
+const VALIDATORS: Record<string, (params: IsValidBankAccountOptions) => boolean> = {
 	"001": validateBancoDoBrasil,
 	"341": validateItau,
 	"237": validateBradesco,
@@ -146,7 +148,7 @@ const VALIDATORS: Record<string, (params: IsValidBankAccountParams) => boolean> 
  *
  * For other banks, uses generic mod10/mod11 validation.
  *
- * @param {IsValidBankAccountParams} params - The bank account parameters.
+ * @param {IsValidBankAccountOptions} params - The bank account parameters.
  * @param {string} params.bankCode - The bank code (3 digits).
  * @param {string} params.agency - The agency number (1-5 digits).
  * @param {string} params.account - The account number (1-13 digits).
@@ -170,7 +172,7 @@ const VALIDATORS: Record<string, (params: IsValidBankAccountParams) => boolean> 
  * }); // true (if valid Itaú account)
  * ```
  */
-export const isValidBankAccount = (params: IsValidBankAccountParams): boolean => {
+export const isValidBankAccount = (params: IsValidBankAccountOptions): boolean => {
 	const { bankCode, agency, account, digit } = params;
 
 	if (

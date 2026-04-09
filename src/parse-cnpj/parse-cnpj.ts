@@ -1,12 +1,11 @@
+import { sanitizeToAlphanumeric } from "../_internals/sanitize-to-alphanumeric/sanitize-to-alphanumeric";
 import { sanitizeToDigits } from "../_internals/sanitize-to-digits/sanitize-to-digits";
+import { LENGTH } from "../format-cnpj/constants";
 import type { FormatCnpjOptions } from "../format-cnpj/format-cnpj";
 
 const sanitize = (value: string | number, version?: FormatCnpjOptions["version"]): string => {
 	if (version === 2) {
-		return value
-			.toString()
-			.replace(/[^A-Za-z0-9]/g, "")
-			.toUpperCase();
+		return sanitizeToAlphanumeric(value);
 	}
 
 	return sanitizeToDigits(value);
@@ -23,4 +22,4 @@ const sanitize = (value: string | number, version?: FormatCnpjOptions["version"]
 export const parseCnpj = (
 	value: string | number,
 	options?: Pick<FormatCnpjOptions, "version">,
-): string => sanitize(value, options?.version);
+): string => sanitize(value, options?.version).slice(0, LENGTH);

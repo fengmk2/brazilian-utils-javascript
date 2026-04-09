@@ -9,4 +9,8 @@ describe("parseProcessoJuridico", () => {
 	it("should remove non numeric characters", () => {
 		expect(parseProcessoJuridico("0002080@$25201%!@2515.%0049")).toBe("00020802520125150049");
 	});
+
+	it("should ignore digits after the processo juridico length", () => {
+		expect(parseProcessoJuridico("00020802520125150049123")).toBe("00020802520125150049");
+	});
 });

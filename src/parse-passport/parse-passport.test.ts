@@ -4,7 +4,7 @@ import { parsePassport } from "./parse-passport";
 describe("parsePassport", () => {
 	describe("should return the string without symbols", () => {
 		test("when there are no symbols, returns the same string", () => {
-			expect(parsePassport("Ab123456")).toBe("Ab123456");
+			expect(parsePassport("Ab123456")).toBe("AB123456");
 		});
 
 		test("when there are spaces", () => {
@@ -21,6 +21,10 @@ describe("parsePassport", () => {
 
 		test("when there are multiple symbols", () => {
 			expect(parsePassport(".A B.1.2-3.45 -. 6.")).toBe("AB123456");
+		});
+
+		test("when there are extra characters after the passport length", () => {
+			expect(parsePassport("AB123456789")).toBe("AB123456");
 		});
 	});
 });

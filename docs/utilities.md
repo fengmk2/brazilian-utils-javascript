@@ -25,7 +25,7 @@ formatCpf('746506880', { pad: true }); // 007.465.068-80
 
 ## parseCpf
 
-Remove CPF formatting and return only digits.
+Remove CPF formatting, keep only digits, and cap the result to 11 digits.
 
 ```javascript
 import { parseCpf } from '@brazilian-utils/brazilian-utils';
@@ -67,7 +67,7 @@ formatCnpj('12OUT345000199', { version: 2 }); // 12.OUT.345/0001-99
 
 ## parseCnpj
 
-Remove CNPJ formatting and return a normalized value.
+Remove CNPJ formatting, return a normalized value, and cap the result to 14 characters.
 
 ```javascript
 import { parseCnpj } from '@brazilian-utils/brazilian-utils';
@@ -119,7 +119,7 @@ formatBoleto('1900000901149', { pad: true }); // 00000.00000 00000.000019 00000.
 
 ## parseBoleto
 
-Remove boleto formatting and return only digits.
+Remove boleto formatting, keep only digits, and cap the result to 47 digits.
 
 ```javascript
 import { parseBoleto } from '@brazilian-utils/brazilian-utils';
@@ -182,12 +182,13 @@ formatPhone('11900000000', { mask: 'auto' }); // Automatically detects mask base
 
 ## parsePhone
 
-Remove phone formatting and return only digits.
+Remove phone formatting, keep only digits, and cap the result to 11 digits.
 
 ```javascript
 import { parsePhone } from '@brazilian-utils/brazilian-utils';
 
 parsePhone('(11) 90000-0000'); // 11900000000
+parsePhone('+55 (11) 90000-0000'); // 55119000000
 ```
 
 ## isValidMobilePhone
@@ -258,7 +259,7 @@ formatPis('123456789', { pad: true }); // 001.23456.78-9
 
 ## parsePis
 
-Remove PIS formatting and return only digits.
+Remove PIS formatting, keep only digits, and cap the result to 11 digits.
 
 ```javascript
 import { parsePis } from '@brazilian-utils/brazilian-utils';
@@ -278,7 +279,7 @@ formatCep('92500000'); // 92500-000
 
 ## parseCep
 
-Remove CEP formatting and return only digits.
+Remove CEP formatting, keep only digits, and cap the result to 8 digits.
 
 ```javascript
 import { parseCep } from '@brazilian-utils/brazilian-utils';
@@ -328,7 +329,7 @@ formatProcessoJuridico('00020802520125150049'); // 0002080-25.2012.515.0049
 
 ## parseProcessoJuridico
 
-Remove processo jurídico formatting and return only digits.
+Remove processo jurídico formatting, keep only digits, and cap the result to 20 digits.
 
 ```javascript
 import { parseProcessoJuridico } from '@brazilian-utils/brazilian-utils';
@@ -518,7 +519,7 @@ isValidPassport('12345678'); // false
 
 ## formatPassport
 
-Format a Brazilian passport number (uppercase, without symbols).
+Format a Brazilian passport number (uppercase, without symbols, capped to 8 characters).
 
 ```javascript
 import { formatPassport } from '@brazilian-utils/brazilian-utils';
@@ -539,11 +540,287 @@ generatePassport(); // 'RY393097'
 
 ## parsePassport
 
-Remove all non-alphanumeric characters (including '-', '.', and whitespaces) from a passport number.
+Remove all non-alphanumeric characters from a passport number, uppercase the result, and cap it to 8 characters.
 
 ```javascript
 import { parsePassport } from '@brazilian-utils/brazilian-utils';
 
 parsePassport('AB-123.456'); // 'AB123456'
 parsePassport(' AB 123 456 '); // 'AB123456'
+```
+
+## generateCep
+
+Generate a random CEP.
+
+```javascript
+import { generateCep } from '@brazilian-utils/brazilian-utils';
+
+generateCep(); // '92500000'
+```
+
+## formatCnh
+
+Format CNH.
+
+```javascript
+import { formatCnh } from '@brazilian-utils/brazilian-utils';
+
+formatCnh('02650306461'); // 026503064-61
+formatCnh('2650306461', { pad: true }); // 026503064-61
+```
+
+## isValidCnh
+
+Check if CNH is valid.
+
+```javascript
+import { isValidCnh } from '@brazilian-utils/brazilian-utils';
+
+isValidCnh('00000000119'); // true
+```
+
+## generateCnh
+
+Generate a valid random CNH.
+
+```javascript
+import { generateCnh } from '@brazilian-utils/brazilian-utils';
+
+generateCnh(); // '02650306461'
+```
+
+## parseCnh
+
+Remove CNH formatting, keep only digits, and cap the result to 11 digits.
+
+```javascript
+import { parseCnh } from '@brazilian-utils/brazilian-utils';
+
+parseCnh('026503064-61'); // '02650306461'
+```
+
+## getCepInfoByAddress
+
+Fetch CEPs from an address using ViaCEP.
+
+```javascript
+import { getCepInfoByAddress } from '@brazilian-utils/brazilian-utils';
+
+const ceps = await getCepInfoByAddress({
+  federalUnit: 'SP',
+  city: 'Sao Paulo',
+  street: 'Avenida Paulista'
+});
+
+// [
+//   {
+//     cep: '01310100',
+//     logradouro: 'Avenida Paulista',
+//     complemento: 'lado par',
+//     bairro: 'Bela Vista',
+//     localidade: 'São Paulo',
+//     uf: 'SP'
+//   }
+// ]
+```
+
+## generateProcessoJuridico
+
+Generate a valid random processo jurídico number according to [CNJ's definition](https://www.conjur.com.br/dl/resolucao-65-cnj.pdf).
+
+```javascript
+import { generateProcessoJuridico } from '@brazilian-utils/brazilian-utils';
+
+generateProcessoJuridico(); // '00020802520125150049'
+generateProcessoJuridico({ year: 2026, court: 5 }); // string | null
+```
+
+## formatLegalNature
+
+Format a legal nature code.
+
+```javascript
+import { formatLegalNature } from '@brazilian-utils/brazilian-utils';
+
+formatLegalNature('2062'); // 206-2
+```
+
+## isValidLegalNature
+
+Check if a legal nature code exists in the official list.
+
+```javascript
+import { isValidLegalNature } from '@brazilian-utils/brazilian-utils';
+
+isValidLegalNature('2062'); // true
+isValidLegalNature('9999'); // false
+```
+
+## generateLegalNature
+
+Generate a random valid legal nature code.
+
+```javascript
+import { generateLegalNature } from '@brazilian-utils/brazilian-utils';
+
+generateLegalNature(); // '2062'
+```
+
+## parseLegalNature
+
+Remove legal nature formatting, keep only digits, and cap the result to 4 digits.
+
+```javascript
+import { parseLegalNature } from '@brazilian-utils/brazilian-utils';
+
+parseLegalNature('206-2'); // '2062'
+```
+
+## getLegalNatures
+
+Get the legal nature map keyed by code.
+
+```javascript
+import { getLegalNatures } from '@brazilian-utils/brazilian-utils';
+
+const legalNatures = getLegalNatures();
+
+legalNatures['2062']; // 'Sociedade Empresária Limitada'
+```
+
+## generatePhone
+
+Generate a random Brazilian phone number.
+
+```javascript
+import { generatePhone } from '@brazilian-utils/brazilian-utils';
+
+generatePhone(); // '11912345678' or '1131234567'
+generatePhone('mobile'); // '11912345678'
+generatePhone('landline'); // '1131234567'
+```
+
+## formatLicensePlate
+
+Format a license plate. Old Brazilian plates are returned with a hyphen and Mercosul plates stay normalized.
+
+```javascript
+import { formatLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+formatLicensePlate('abc1234'); // 'ABC-1234'
+formatLicensePlate('abc1d23'); // 'ABC1D23'
+```
+
+## generateLicensePlate
+
+Generate a random license plate in the chosen format.
+
+```javascript
+import { generateLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+generateLicensePlate(); // 'ABC1D23'
+generateLicensePlate('LLLNNNN'); // 'ABC1234'
+generateLicensePlate('LLLNNLN'); // 'ABC12D3'
+```
+
+## getFormatLicensePlate
+
+Detect the normalized format of a license plate.
+
+```javascript
+import { getFormatLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+getFormatLicensePlate('ABC-1234'); // 'LLLNNNN'
+getFormatLicensePlate('ABC1D23'); // 'LLLNLNN'
+getFormatLicensePlate('ABC12D3'); // 'LLLNNLN'
+getFormatLicensePlate('INVALID'); // null
+```
+
+## parseLicensePlate
+
+Remove separators from a license plate, normalize it to uppercase, and cap it to 7 characters.
+
+```javascript
+import { parseLicensePlate } from '@brazilian-utils/brazilian-utils';
+
+parseLicensePlate('abc-1234'); // 'ABC1234'
+```
+
+## generatePis
+
+Generate a valid random PIS.
+
+```javascript
+import { generatePis } from '@brazilian-utils/brazilian-utils';
+
+generatePis(); // '12345678901'
+```
+
+## getMunicipality
+
+Get municipality information by IBGE code, or get an IBGE code from municipality name and UF.
+
+```javascript
+import { getMunicipality } from '@brazilian-utils/brazilian-utils';
+
+await getMunicipality({ code: '3550308' });
+// ['São Paulo', 'SP']
+
+await getMunicipality({ municipalityName: 'São Paulo', uf: 'SP' });
+// '3550308'
+```
+
+## isHoliday
+
+Check if a specific date is a Brazilian holiday.
+
+```javascript
+import { isHoliday } from '@brazilian-utils/brazilian-utils';
+
+isHoliday({ targetDate: new Date('2024-01-01') }); // true
+isHoliday({ targetDate: new Date('2024-07-09'), stateCode: 'SP' }); // true
+```
+
+## formatVoterId
+
+Format a voter ID number.
+
+```javascript
+import { formatVoterId } from '@brazilian-utils/brazilian-utils';
+
+formatVoterId('123456780175'); // '1234 5678 01 75'
+```
+
+## isValidVoterId
+
+Check if a voter ID number is valid.
+
+```javascript
+import { generateVoterId, isValidVoterId } from '@brazilian-utils/brazilian-utils';
+
+const voterId = generateVoterId('SP');
+
+isValidVoterId(voterId); // true
+```
+
+## generateVoterId
+
+Generate a valid random voter ID number. You can optionally provide a state code.
+
+```javascript
+import { generateVoterId } from '@brazilian-utils/brazilian-utils';
+
+generateVoterId(); // valid random voter ID
+generateVoterId('SP'); // valid random voter ID for Sao Paulo
+```
+
+## parseVoterId
+
+Remove voter ID formatting, keep only digits, and cap the result to 12 digits.
+
+```javascript
+import { parseVoterId } from '@brazilian-utils/brazilian-utils';
+
+parseVoterId('1234 5678 01 75'); // '123456780175'
 ```

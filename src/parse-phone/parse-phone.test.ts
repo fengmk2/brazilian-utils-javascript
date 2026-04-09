@@ -8,6 +8,10 @@ describe("parsePhone", () => {
 	});
 
 	it("should remove non numeric characters", () => {
-		expect(parsePhone("+55 (11) 98888-7777")).toBe("5511988887777");
+		expect(parsePhone("+55 (11) 98888-7777")).toBe("55119888877");
+	});
+
+	it("should ignore digits after the phone length", () => {
+		expect(parsePhone("11988887777123")).toBe("11988887777");
 	});
 });

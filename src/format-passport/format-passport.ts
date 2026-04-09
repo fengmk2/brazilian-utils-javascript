@@ -1,3 +1,6 @@
+import { sanitizeToAlphanumeric } from "../_internals/sanitize-to-alphanumeric/sanitize-to-alphanumeric";
+import { LENGTH } from "./constants";
+
 /**
  * Formats a Brazilian passport number for display.
  * Converts to uppercase and removes all non-alphanumeric characters.
@@ -12,5 +15,5 @@
  */
 export const formatPassport = (passport: string): string => {
 	if (!passport || typeof passport !== "string") return "";
-	return passport.toUpperCase().replace(/[^A-Z0-9]/g, "");
+	return sanitizeToAlphanumeric(passport).slice(0, LENGTH);
 };
