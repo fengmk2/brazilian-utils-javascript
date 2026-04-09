@@ -1,15 +1,18 @@
+import { sanitizeToAlphanumeric } from "../_internals/sanitize-to-alphanumeric/sanitize-to-alphanumeric";
+import { LENGTH } from "./constants";
+
 /**
- * Removes symbols ('-', '.', and whitespaces) from a passport number.
+ * Removes non-alphanumeric characters from a passport number, uppercases it, and caps it to 8 characters.
  *
  * @param passport - The string containing a passport number.
- * @returns The passport number with dashes, dots, and whitespaces removed.
+ * @returns The normalized passport number.
  *
  * @example
- * parsePassport("Ab123456") // "Ab123456"
- * parsePassport("Ab-123456") // "Ab123456"
- * parsePassport("Ab -. 123456") // "Ab123456"
+ * parsePassport("Ab123456") // "AB123456"
+ * parsePassport("Ab-123456") // "AB123456"
+ * parsePassport("Ab -. 123456") // "AB123456"
  */
 export const parsePassport = (passport: string): string => {
 	if (!passport || typeof passport !== "string") return "";
-	return passport.replace(/[^a-zA-Z0-9]/g, "");
+	return sanitizeToAlphanumeric(passport).slice(0, LENGTH);
 };

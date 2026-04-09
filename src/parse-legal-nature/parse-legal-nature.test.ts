@@ -5,4 +5,8 @@ describe("parseLegalNature", () => {
 	it("should remove legal nature formatting", () => {
 		expect(parseLegalNature("206-2")).toBe("2062");
 	});
+
+	it("should ignore digits after the legal nature length", () => {
+		expect(parseLegalNature("206299")).toBe("2062");
+	});
 });

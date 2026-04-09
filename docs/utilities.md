@@ -25,7 +25,7 @@ formatCpf('746506880', { pad: true }); // 007.465.068-80
 
 ## parseCpf
 
-Remove CPF formatting and return only digits.
+Remove CPF formatting, keep only digits, and cap the result to 11 digits.
 
 ```javascript
 import { parseCpf } from '@brazilian-utils/brazilian-utils';
@@ -67,7 +67,7 @@ formatCnpj('12OUT345000199', { version: 2 }); // 12.OUT.345/0001-99
 
 ## parseCnpj
 
-Remove CNPJ formatting and return a normalized value.
+Remove CNPJ formatting, return a normalized value, and cap the result to 14 characters.
 
 ```javascript
 import { parseCnpj } from '@brazilian-utils/brazilian-utils';
@@ -119,7 +119,7 @@ formatBoleto('1900000901149', { pad: true }); // 00000.00000 00000.000019 00000.
 
 ## parseBoleto
 
-Remove boleto formatting and return only digits.
+Remove boleto formatting, keep only digits, and cap the result to 47 digits.
 
 ```javascript
 import { parseBoleto } from '@brazilian-utils/brazilian-utils';
@@ -182,12 +182,13 @@ formatPhone('11900000000', { mask: 'auto' }); // Automatically detects mask base
 
 ## parsePhone
 
-Remove phone formatting and return only digits.
+Remove phone formatting, keep only digits, and cap the result to 11 digits.
 
 ```javascript
 import { parsePhone } from '@brazilian-utils/brazilian-utils';
 
 parsePhone('(11) 90000-0000'); // 11900000000
+parsePhone('+55 (11) 90000-0000'); // 55119000000
 ```
 
 ## isValidMobilePhone
@@ -258,7 +259,7 @@ formatPis('123456789', { pad: true }); // 001.23456.78-9
 
 ## parsePis
 
-Remove PIS formatting and return only digits.
+Remove PIS formatting, keep only digits, and cap the result to 11 digits.
 
 ```javascript
 import { parsePis } from '@brazilian-utils/brazilian-utils';
@@ -278,7 +279,7 @@ formatCep('92500000'); // 92500-000
 
 ## parseCep
 
-Remove CEP formatting and return only digits.
+Remove CEP formatting, keep only digits, and cap the result to 8 digits.
 
 ```javascript
 import { parseCep } from '@brazilian-utils/brazilian-utils';
@@ -328,7 +329,7 @@ formatProcessoJuridico('00020802520125150049'); // 0002080-25.2012.515.0049
 
 ## parseProcessoJuridico
 
-Remove processo jurídico formatting and return only digits.
+Remove processo jurídico formatting, keep only digits, and cap the result to 20 digits.
 
 ```javascript
 import { parseProcessoJuridico } from '@brazilian-utils/brazilian-utils';
@@ -518,7 +519,7 @@ isValidPassport('12345678'); // false
 
 ## formatPassport
 
-Format a Brazilian passport number (uppercase, without symbols).
+Format a Brazilian passport number (uppercase, without symbols, capped to 8 characters).
 
 ```javascript
 import { formatPassport } from '@brazilian-utils/brazilian-utils';
@@ -539,7 +540,7 @@ generatePassport(); // 'RY393097'
 
 ## parsePassport
 
-Remove all non-alphanumeric characters (including '-', '.', and whitespaces) from a passport number.
+Remove all non-alphanumeric characters from a passport number, uppercase the result, and cap it to 8 characters.
 
 ```javascript
 import { parsePassport } from '@brazilian-utils/brazilian-utils';
@@ -591,7 +592,7 @@ generateCnh(); // '02650306461'
 
 ## parseCnh
 
-Remove CNH formatting and return only digits.
+Remove CNH formatting, keep only digits, and cap the result to 11 digits.
 
 ```javascript
 import { parseCnh } from '@brazilian-utils/brazilian-utils';
@@ -668,7 +669,7 @@ generateLegalNature(); // '2062'
 
 ## parseLegalNature
 
-Remove legal nature formatting and return only digits.
+Remove legal nature formatting, keep only digits, and cap the result to 4 digits.
 
 ```javascript
 import { parseLegalNature } from '@brazilian-utils/brazilian-utils';
@@ -738,7 +739,7 @@ getFormatLicensePlate('INVALID'); // null
 
 ## parseLicensePlate
 
-Remove separators from a license plate and normalize it to uppercase.
+Remove separators from a license plate, normalize it to uppercase, and cap it to 7 characters.
 
 ```javascript
 import { parseLicensePlate } from '@brazilian-utils/brazilian-utils';
@@ -816,7 +817,7 @@ generateVoterId('SP'); // valid random voter ID for Sao Paulo
 
 ## parseVoterId
 
-Remove voter ID formatting and return only digits.
+Remove voter ID formatting, keep only digits, and cap the result to 12 digits.
 
 ```javascript
 import { parseVoterId } from '@brazilian-utils/brazilian-utils';

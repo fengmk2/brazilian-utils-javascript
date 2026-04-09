@@ -6,4 +6,9 @@ describe("parseLicensePlate", () => {
 		expect(parseLicensePlate("abc-1234")).toBe("ABC1234");
 		expect(parseLicensePlate("abc1d23")).toBe("ABC1D23");
 	});
+
+	it("should ignore characters after the license plate length", () => {
+		expect(parseLicensePlate("abc123456")).toBe("ABC1234");
+		expect(parseLicensePlate("abc1d23xyz")).toBe("ABC1D23");
+	});
 });

@@ -13,4 +13,12 @@ describe("parseCnpj", () => {
 	it("should keep alphanumeric characters for version 2", () => {
 		expect(parseCnpj("Q0.SLF.MBD/7VX4-39", { version: 2 })).toBe("Q0SLFMBD7VX439");
 	});
+
+	it("should ignore digits after the CNPJ length", () => {
+		expect(parseCnpj("46843485000186123")).toBe("46843485000186");
+	});
+
+	it("should ignore characters after the CNPJ length for version 2", () => {
+		expect(parseCnpj("Q0.SLF.MBD/7VX4-39ABC", { version: 2 })).toBe("Q0SLFMBD7VX439");
+	});
 });

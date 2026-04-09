@@ -25,7 +25,7 @@ formatCpf('746506880', { pad: true }); // 007.465.068-80
 
 ## parseCpf
 
-Remove a formatação do CPF e retorna apenas os dígitos.
+Remove a formatação do CPF, mantém apenas os dígitos e limita o resultado a 11 dígitos.
 
 ```javascript
 import { parseCpf } from '@brazilian-utils/brazilian-utils';
@@ -67,7 +67,7 @@ formatCnpj('12OUT345000199', { version: 2 }); // 12.OUT.345/0001-99
 
 ## parseCnpj
 
-Remove a formatação do CNPJ e retorna um valor normalizado.
+Remove a formatação do CNPJ, retorna um valor normalizado e limita o resultado a 14 caracteres.
 
 ```javascript
 import { parseCnpj } from '@brazilian-utils/brazilian-utils';
@@ -119,7 +119,7 @@ formatBoleto('1900000901149', { pad: true }); // 00000.00000 00000.000019 00000.
 
 ## parseBoleto
 
-Remove a formatação do boleto e retorna apenas os dígitos.
+Remove a formatação do boleto, mantém apenas os dígitos e limita o resultado a 47 dígitos.
 
 ```javascript
 import { parseBoleto } from '@brazilian-utils/brazilian-utils';
@@ -182,12 +182,13 @@ formatPhone('11900000000', { mask: 'auto' }); // Detecta automaticamente a másc
 
 ## parsePhone
 
-Remove a formatação do telefone e retorna apenas os dígitos.
+Remove a formatação do telefone, mantém apenas os dígitos e limita o resultado a 11 dígitos.
 
 ```javascript
 import { parsePhone } from '@brazilian-utils/brazilian-utils';
 
 parsePhone('(11) 90000-0000'); // 11900000000
+parsePhone('+55 (11) 90000-0000'); // 55119000000
 ```
 
 ## isValidMobilePhone
@@ -258,7 +259,7 @@ formatPis('123456789', { pad: true }); // 001.23456.78-9
 
 ## parsePis
 
-Remove a formatação do PIS e retorna apenas os dígitos.
+Remove a formatação do PIS, mantém apenas os dígitos e limita o resultado a 11 dígitos.
 
 ```javascript
 import { parsePis } from '@brazilian-utils/brazilian-utils';
@@ -278,7 +279,7 @@ formatCep('92500000'); // 92500-000
 
 ## parseCep
 
-Remove a formatação do CEP e retorna apenas os dígitos.
+Remove a formatação do CEP, mantém apenas os dígitos e limita o resultado a 8 dígitos.
 
 ```javascript
 import { parseCep } from '@brazilian-utils/brazilian-utils';
@@ -328,7 +329,7 @@ formatProcessoJuridico('00020802520125150049'); // 0002080-25.2012.515.0049
 
 ## parseProcessoJuridico
 
-Remove a formatação do processo jurídico e retorna apenas os dígitos.
+Remove a formatação do processo jurídico, mantém apenas os dígitos e limita o resultado a 20 dígitos.
 
 ```javascript
 import { parseProcessoJuridico } from '@brazilian-utils/brazilian-utils';
@@ -518,7 +519,7 @@ isValidPassport('12345678'); // false
 
 ## formatPassport
 
-Formata um número de passaporte brasileiro (maiúsculas, sem símbolos).
+Formata um número de passaporte brasileiro (maiúsculas, sem símbolos, limitado a 8 caracteres).
 
 ```javascript
 import { formatPassport } from '@brazilian-utils/brazilian-utils';
@@ -539,7 +540,7 @@ generatePassport(); // 'RY393097'
 
 ## parsePassport
 
-Remove todos os caracteres não alfanuméricos (incluindo '-', '.' e espaços) de um número de passaporte.
+Remove todos os caracteres não alfanuméricos de um número de passaporte, converte para maiúsculas e limita o resultado a 8 caracteres.
 
 ```javascript
 import { parsePassport } from '@brazilian-utils/brazilian-utils';
@@ -591,7 +592,7 @@ generateCnh(); // '02650306461'
 
 ## parseCnh
 
-Remove a formatação da CNH e retorna apenas os dígitos.
+Remove a formatação da CNH, mantém apenas os dígitos e limita o resultado a 11 dígitos.
 
 ```javascript
 import { parseCnh } from '@brazilian-utils/brazilian-utils';
@@ -668,7 +669,7 @@ generateLegalNature(); // '2062'
 
 ## parseLegalNature
 
-Remove a formatação da natureza jurídica e retorna apenas os dígitos.
+Remove a formatação da natureza jurídica, mantém apenas os dígitos e limita o resultado a 4 dígitos.
 
 ```javascript
 import { parseLegalNature } from '@brazilian-utils/brazilian-utils';
@@ -738,7 +739,7 @@ getFormatLicensePlate('INVALID'); // null
 
 ## parseLicensePlate
 
-Remove separadores de uma placa e normaliza para letras maiúsculas.
+Remove separadores de uma placa, normaliza para letras maiúsculas e limita o resultado a 7 caracteres.
 
 ```javascript
 import { parseLicensePlate } from '@brazilian-utils/brazilian-utils';
@@ -816,7 +817,7 @@ generateVoterId('SP'); // título de eleitor aleatório válido de São Paulo
 
 ## parseVoterId
 
-Remove a formatação do título de eleitor e retorna apenas os dígitos.
+Remove a formatação do título de eleitor, mantém apenas os dígitos e limita o resultado a 12 dígitos.
 
 ```javascript
 import { parseVoterId } from '@brazilian-utils/brazilian-utils';

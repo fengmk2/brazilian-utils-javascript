@@ -1,4 +1,4 @@
-import { DATA as STATES } from "../_internals/constants/states";
+import { DATA as STATES, type StateCode } from "../_internals/constants/states";
 
 export class GetCepInfoByAddressError extends Error {
 	constructor(message: string) {
@@ -40,7 +40,9 @@ export type GetCepInfoByAddressOptions = {
 	street: string;
 };
 
-const VALID_STATE_CODES = new Set(STATES.map((state) => state.code));
+const VALID_STATE_CODES = new Set<StateCode>(STATES.map((state) => state.code));
+
+const isStateCode = (value: string): value is StateCode => VALID_STATE_CODES.has(value as StateCode);
 
 const normalizeAddressPart = (value: string): string =>
 	value
@@ -55,7 +57,7 @@ export const getCepInfoByAddress = async ({
 }: GetCepInfoByAddressOptions): Promise<CepAddressInfo[]> => {
 	const normalizedUf = federalUnit.trim().toUpperCase();
 
-	if (!VALID_STATE_CODES.has(normalizedUf)) {
+	if (!isStateCode(normalizedUf)) {
 		throw new GetCepInfoByAddressValidationError(`Invalid UF: ${federalUnit}`);
 	}
 

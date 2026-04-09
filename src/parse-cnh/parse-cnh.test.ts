@@ -9,4 +9,8 @@ describe("parseCnh", () => {
 	it("should remove non numeric characters", () => {
 		expect(parseCnh("000.abc000001-19")).toBe("00000000119");
 	});
+
+	it("should ignore digits after the CNH length", () => {
+		expect(parseCnh("00000000119123")).toBe("00000000119");
+	});
 });
