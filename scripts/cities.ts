@@ -4,6 +4,8 @@ import { writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { fetchWithRetry } from "../src/_internals/fetch-with-retry/fetch-with-retry.ts";
+
 const scriptsDir = dirname(fileURLToPath(import.meta.url));
 
 type City = {
@@ -29,36 +31,43 @@ type City = {
 	};
 };
 
-const response = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/municipios");
+const main = async () => {
+	const response = await fetchWithRetry(
+		"https://servicodados.ibge.gov.br/api/v1/localidades/municipios",
+	);
 
-const json = (await response.json()) as City[];
+	if (!response.ok) {
+		throw new Error(`IBGE municipalities request failed with status ${response.status}`);
+	}
 
-const cities = Object.fromEntries(
-	Object.entries(
-		json.reduce(
-			(acc, city) => {
-				const stateInitials = city?.microrregiao?.mesorregiao?.UF?.sigla;
+	const json = (await response.json()) as City[];
 
-				if (!stateInitials) return acc;
+	const cities = Object.fromEntries(
+		Object.entries(
+			json.reduce(
+				(acc, city) => {
+					const stateInitials = city?.microrregiao?.mesorregiao?.UF?.sigla;
 
-				if (!acc[stateInitials]) {
-					acc[stateInitials] = [];
-				}
+					if (!stateInitials) return acc;
 
-				acc[stateInitials].push(city.nome);
+					if (!acc[stateInitials]) {
+						acc[stateInitials] = [];
+					}
 
-				return acc;
-			},
-			{} as Record<string, string[]>,
-		),
-	)
-		.sort(([a], [b]) => a.localeCompare(b))
-		.map(([state, cityNames]) => [state, cityNames.sort((a, b) => a.localeCompare(b))]),
-);
+					acc[stateInitials].push(city.nome);
 
-await writeFile(
-	resolve(scriptsDir, "..", "./src/_internals/constants/cities.ts"),
-	`/**
+					return acc;
+				},
+				{} as Record<string, string[]>,
+			),
+		)
+			.sort(([a], [b]) => a.localeCompare(b))
+			.map(([state, cityNames]) => [state, cityNames.sort((a, b) => a.localeCompare(b))]),
+	);
+
+	await writeFile(
+		resolve(scriptsDir, "..", "./src/_internals/constants/cities.ts"),
+		`/**
  * A collection of Brazilian cities categorized by their respective states.
  * 
  * @constant
@@ -82,4 +91,10 @@ await writeFile(
  * @property {string[]} MA - Cities in the state of Maranhão.
  */
 export const DATA = ${JSON.stringify(cities)} as const`,
-);
+	);
+};
+
+await main().catch((error) => {
+	console.error(error instanceof Error ? error.message : error);
+	process.exit(1);
+});

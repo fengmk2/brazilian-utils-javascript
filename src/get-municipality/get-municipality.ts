@@ -1,3 +1,5 @@
+import { fetchWithRetry } from "../_internals/fetch-with-retry/fetch-with-retry";
+
 type MunicipalityByCodeResponse = {
 	nome?: string;
 	microrregiao?: {
@@ -34,9 +36,14 @@ const normalizeText = (value: string): string =>
 		.toUpperCase();
 
 const getMunicipalityByCode = async (code: string): Promise<[string, string] | null> => {
-	const response = await fetch(
-		`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${code}`,
-	);
+	let response: Response;
+	try {
+		response = await fetchWithRetry(
+			`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${code}`,
+		);
+	} catch {
+		return null;
+	}
 
 	if (!response.ok) return null;
 
@@ -59,9 +66,14 @@ const getMunicipalityCodeByName = async ({
 
 	if (!/^[A-Z]{2}$/.test(normalizedUf)) return null;
 
-	const response = await fetch(
-		`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${normalizedUf}/municipios`,
-	);
+	let response: Response;
+	try {
+		response = await fetchWithRetry(
+			`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${normalizedUf}/municipios`,
+		);
+	} catch {
+		return null;
+	}
 
 	if (!response.ok) return null;
 

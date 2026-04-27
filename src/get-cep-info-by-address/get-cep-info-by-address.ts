@@ -1,4 +1,5 @@
 import { DATA as STATES, type StateCode } from "../_internals/constants/states";
+import { fetchWithRetry } from "../_internals/fetch-with-retry/fetch-with-retry";
 
 export class GetCepInfoByAddressError extends Error {
 	constructor(message: string) {
@@ -66,9 +67,16 @@ export const getCepInfoByAddress = async ({
 		throw new GetCepInfoByAddressValidationError("City and street are required");
 	}
 
-	const response = await fetch(
-		`https://viacep.com.br/ws/${normalizedUf}/${encodeURIComponent(normalizeAddressPart(city))}/${encodeURIComponent(normalizeAddressPart(street))}/json/`,
-	);
+	let response: Response;
+	try {
+		response = await fetchWithRetry(
+			`https://viacep.com.br/ws/${normalizedUf}/${encodeURIComponent(normalizeAddressPart(city))}/${encodeURIComponent(normalizeAddressPart(street))}/json/`,
+		);
+	} catch (error) {
+		throw new GetCepInfoByAddressError(
+			error instanceof Error ? error.message : "ViaCEP request failed",
+		);
+	}
 
 	if (!response.ok) {
 		throw new GetCepInfoByAddressError(`ViaCEP request failed with status ${response.status}`);

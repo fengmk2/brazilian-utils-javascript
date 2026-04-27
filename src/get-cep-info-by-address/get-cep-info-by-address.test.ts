@@ -1,5 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "../_internals/test/runtime";
-import { GetCepInfoByAddressValidationError, getCepInfoByAddress } from "./get-cep-info-by-address";
+import {
+	GetCepInfoByAddressError,
+	GetCepInfoByAddressValidationError,
+	getCepInfoByAddress,
+} from "./get-cep-info-by-address";
 
 describe("getCepInfoByAddress", () => {
 	const fetchMock = vi.fn();
@@ -54,5 +58,32 @@ describe("getCepInfoByAddress", () => {
 				uf: "SP",
 			},
 		]);
+	});
+
+	it("should wrap transport failures with GetCepInfoByAddressError", async () => {
+		fetchMock.mockRejectedValueOnce(
+			Object.assign(new TypeError("fetch failed"), {
+				cause: { code: "UND_ERR_SOCKET" },
+			}),
+		);
+		fetchMock.mockRejectedValueOnce(
+			Object.assign(new TypeError("fetch failed"), {
+				cause: { code: "UND_ERR_SOCKET" },
+			}),
+		);
+		fetchMock.mockRejectedValueOnce(
+			Object.assign(new TypeError("fetch failed"), {
+				cause: { code: "UND_ERR_SOCKET" },
+			}),
+		);
+
+		await expect(
+			getCepInfoByAddress({
+				federalUnit: "SP",
+				city: "São Paulo",
+				street: "Avenida Paulista",
+			}),
+		).rejects.toThrow(GetCepInfoByAddressError);
+		expect(fetchMock).toHaveBeenCalledTimes(3);
 	});
 });

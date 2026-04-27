@@ -1,3 +1,4 @@
+import { fetchWithRetry } from "../_internals/fetch-with-retry/fetch-with-retry";
 /**
  * based on https://github.com/BrasilAPI/cep-promise
  */
@@ -77,7 +78,7 @@ type BrasilApiResponse = {
 };
 
 const fetchViaCep = async (cep: string): Promise<AddressInfo> => {
-	const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+	const response = await fetchWithRetry(`https://viacep.com.br/ws/${cep}/json/`);
 
 	if (!response.ok) {
 		throw new Error(`ViaCEP request failed with status ${response.status}`);
@@ -99,7 +100,9 @@ const fetchViaCep = async (cep: string): Promise<AddressInfo> => {
 };
 
 const fetchWidenet = async (cep: string): Promise<AddressInfo> => {
-	const response = await fetch(`https://apps.widenet.com.br/busca-cep/api/cep/${cep}.json`);
+	const response = await fetchWithRetry(
+		`https://apps.widenet.com.br/busca-cep/api/cep/${cep}.json`,
+	);
 
 	if (!response.ok) {
 		throw new Error(`Widenet request failed with status ${response.status}`);
@@ -121,7 +124,7 @@ const fetchWidenet = async (cep: string): Promise<AddressInfo> => {
 };
 
 const fetchBrasilApi = async (cep: string): Promise<AddressInfo> => {
-	const response = await fetch(`https://brasilapi.com.br/api/cep/v1/${cep}`);
+	const response = await fetchWithRetry(`https://brasilapi.com.br/api/cep/v1/${cep}`);
 
 	if (!response.ok) {
 		throw new Error(`BrasilAPI request failed with status ${response.status}`);
