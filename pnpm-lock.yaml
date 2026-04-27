@@ -16,8 +16,8 @@ importers:
         specifier: 4.1.4
         version: 4.1.4(@voidzero-dev/vite-plus-test@0.1.16(@types/node@25.5.0)(@voidzero-dev/vite-plus-core@0.1.16(@types/node@25.5.0)(jiti@2.6.1)(typescript@5.9.3))(jiti@2.6.1)(typescript@5.9.3))
       release-it:
-        specifier: 20.0.0
-        version: 20.0.0(@types/node@25.5.0)(magicast@0.5.2)
+        specifier: 20.0.1
+        version: 20.0.1(@types/node@25.5.0)(magicast@0.5.2)
       vite:
         specifier: npm:@voidzero-dev/vite-plus-core@0.1.16
         version: '@voidzero-dev/vite-plus-core@0.1.16(@types/node@25.5.0)(jiti@2.6.1)(typescript@5.9.3)'
@@ -146,8 +146,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/prompts@8.3.2':
-    resolution: {integrity: sha512-yFroiSj2iiBFlm59amdTvAcQFvWS6ph5oKESls/uqPBect7rTU2GbjyZO2DqxMGuIwVA8z0P4K6ViPcd/cp+0w==}
+  '@inquirer/prompts@8.4.2':
+    resolution: {integrity: sha512-XJmn/wY4AX56l1BRU+ZjDrFtg9+2uBEi4JvJQj82kwJDQKiPgSn4CEsbfGGygS4Gw6rkL4W18oATjfVfaqub2Q==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^21.7.0 || ^20.12.0'}
     peerDependencies:
       '@types/node': '>=18'
@@ -217,9 +217,6 @@ packages:
 
   '@microsoft/tsdoc@0.16.0':
     resolution: {integrity: sha512-xgAyonlVVS+q7Vc7qLW0UrJU7rSFcETRWsqdXZtjzRU8dF+6CkozTK4V4y1LwOX7j8r/vHphjDeMeGI4tNGeGA==}
-
-  '@nodeutils/defaults-deep@1.1.0':
-    resolution: {integrity: sha512-gG44cwQovaOFdSR02jR9IhVRpnDP64VN6JdjYJTfNz4J4fWn7TQnmrf22nSjRqlwlxPcW8PL/L3KbJg3tdwvpg==}
 
   '@octokit/auth-token@6.0.0':
     resolution: {integrity: sha512-P4YJBPdPSpWTQ1NU4XYdvHvXJJDxM6YwpS0FZHRgP7YFkdVxsWcpWGy/NVqlAA7PcPCnMacXlRm1y2PFZRWL/w==}
@@ -2131,8 +2128,8 @@ packages:
     resolution: {integrity: sha512-9u/XQ1pvrQtYyMpZe7DXKv2p5CNvyVwzUB6uhLAnQwHMSgKMBR62lc7AHljaeteeHXn11XTAaLLUVZYVZyuRBQ==}
     engines: {node: '>= 20.19.0'}
 
-  release-it@20.0.0:
-    resolution: {integrity: sha512-KLCgEJH+t/MnJieOzjcroFcTSFY8dw44HT9joMm6+R5hPa+h2qPrDhHHZ5eN6m1yx8KK+q7KNdM7AfJYfAVFvQ==}
+  release-it@20.0.1:
+    resolution: {integrity: sha512-3ob1P1aV+3+ZOoR7qgobfYyMlQbpitzOK09iKTtQ145vFi4rWxlRTgHwtVl8kokCvqiF/cJPxRlfcmZmF5aDJA==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.0.0}
     hasBin: true
 
@@ -2633,7 +2630,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 25.5.0
 
-  '@inquirer/prompts@8.3.2(@types/node@25.5.0)':
+  '@inquirer/prompts@8.4.2(@types/node@25.5.0)':
     dependencies:
       '@inquirer/checkbox': 5.1.4(@types/node@25.5.0)
       '@inquirer/confirm': 6.0.12(@types/node@25.5.0)
@@ -2729,10 +2726,6 @@ snapshots:
       resolve: 1.22.11
 
   '@microsoft/tsdoc@0.16.0': {}
-
-  '@nodeutils/defaults-deep@1.1.0':
-    dependencies:
-      lodash: 4.18.1
 
   '@octokit/auth-token@6.0.0': {}
 
@@ -4486,15 +4479,15 @@ snapshots:
 
   readdirp@5.0.0: {}
 
-  release-it@20.0.0(@types/node@25.5.0)(magicast@0.5.2):
+  release-it@20.0.1(@types/node@25.5.0)(magicast@0.5.2):
     dependencies:
-      '@inquirer/prompts': 8.3.2(@types/node@25.5.0)
-      '@nodeutils/defaults-deep': 1.1.0
+      '@inquirer/prompts': 8.4.2(@types/node@25.5.0)
       '@octokit/rest': 22.0.1
       '@phun-ky/typeof': 2.0.3
       async-retry: 1.3.3
       c12: 3.3.3(magicast@0.5.2)
       ci-info: 4.4.0
+      defu: 6.1.7
       eta: 4.5.1
       git-url-parse: 16.1.0
       issue-parser: 7.0.1
